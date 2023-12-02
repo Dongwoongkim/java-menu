@@ -3,11 +3,11 @@ package menu.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import menu.dto.RecommendResultDto;
-import menu.model.CategoryGenerator;
 import menu.model.Coach;
 import menu.model.Coaches;
 import menu.model.Menu;
-import menu.model.RandomFoodGenerator;
+import menu.model.MenuGenerator;
+import menu.model.RandomMenuGenerator;
 import menu.util.InputConverter;
 import menu.util.InputValidator;
 import menu.view.InputView;
@@ -28,12 +28,17 @@ public class RecommendController {
         Coaches coaches = initCoaches();
         initUnEatableFood(coaches);
 
-        CategoryGenerator categoryGenerator = new CategoryGenerator();
-        List<Integer> categoryNumbers = categoryGenerator.pickCategory();
+        MenuGenerator menuGenerator = new RandomMenuGenerator();
+        List<Integer> categoryNumbers = decideCategories(menuGenerator);
+        recommendMenu(coaches, categoryNumbers, menuGenerator);
 
-        recommendMenu(coaches, categoryNumbers);
         List<RecommendResultDto> results = getResults(coaches);
         showResult(categoryNumbers, results);
+    }
+
+    private List<Integer> decideCategories(MenuGenerator menuGenerator) {
+        List<Integer> categoryNumbers = menuGenerator.pickCategory();
+        return categoryNumbers;
     }
 
     private List<RecommendResultDto> getResults(Coaches coaches) {
@@ -43,9 +48,9 @@ public class RecommendController {
         return results;
     }
 
-    private void recommendMenu(Coaches coaches, List<Integer> categoryNumbers) {
+    private void recommendMenu(Coaches coaches, List<Integer> categoryNumbers, MenuGenerator menuGenerator) {
         for (Integer categoryNumber : categoryNumbers) {
-            coaches.getCoaches().forEach(coach -> coach.makeOneDayPlan(categoryNumber, new RandomFoodGenerator()));
+            coaches.getCoaches().forEach(coach -> coach.makeOneDayPlan(categoryNumber, menuGenerator));
         }
     }
 

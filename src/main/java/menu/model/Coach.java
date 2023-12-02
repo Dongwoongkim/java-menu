@@ -32,7 +32,6 @@ public class Coach {
         if (isEmpty(unEatableFoodNames)) {
             return;
         }
-
         validate(unEatableFoodNames);
         this.unEatableFoods = unEatableFoodNames.stream()
                 .map(foodName -> new Food(foodName))
@@ -57,10 +56,11 @@ public class Coach {
         return uniqueNames.size() != foodNames.size();
     }
 
-    public void makeOneDayPlan(final Integer categoryNumber, RandomFoodGenerator randomFoodGenerator) {
+    public void makeOneDayPlan(final Integer categoryNumber, MenuGenerator menuGenerator) {
         List<String> foodNames = Menu.getFoodBySequence(categoryNumber);
+
         while (true) {
-            String pickedFoodName = randomFoodGenerator.pickRandomFood(foodNames);
+            String pickedFoodName = menuGenerator.pickRandomFood(foodNames);
             Food food = new Food(pickedFoodName);
             if (!unEatableFoods.contains(food) && !plan.contains(pickedFoodName)) {
                 this.plan.add(food);
@@ -70,7 +70,9 @@ public class Coach {
     }
 
     public List<String> getPlan() {
-        return plan.stream().map(food -> String.valueOf(food.getName())).collect(Collectors.toUnmodifiableList());
+        return plan.stream()
+                .map(food -> String.valueOf(food.getName()))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public String getName() {
