@@ -6,11 +6,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import menu.exception.DuplicateUnEatableFoodException;
+import menu.exception.OverMaxUnEatableFoodNameSize;
 import menu.model.vo.Food;
 import menu.model.vo.Name;
 
 public class Coach {
 
+    private static final Integer MAX_UNEATABLE_FOOD_SIZE = 2;
     private final Name name;
     private List<Food> unEatableFoods;
 
@@ -39,9 +41,12 @@ public class Coach {
         return unEatableFoodNames.get(0).isEmpty();
     }
 
-    private void validate(List<String> foodName) {
-        if (isContainDuplicateFood(foodName)) {
+    private void validate(List<String> foodNames) {
+        if (isContainDuplicateFood(foodNames)) {
             throw new DuplicateUnEatableFoodException();
+        }
+        if (foodNames.size() > MAX_UNEATABLE_FOOD_SIZE) {
+            throw new OverMaxUnEatableFoodNameSize(MAX_UNEATABLE_FOOD_SIZE);
         }
     }
 
