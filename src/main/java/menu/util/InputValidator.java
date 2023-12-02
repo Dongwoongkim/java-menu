@@ -1,5 +1,7 @@
 package menu.util;
 
+import menu.exception.EmptyCoachNameException;
+
 public class InputValidator {
 
     private InputValidator() {
@@ -7,7 +9,7 @@ public class InputValidator {
 
     public static void validateCoachNames(String coachNames) {
         if (coachNames.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new EmptyCoachNameException();
         }
     }
 }

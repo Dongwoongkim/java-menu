@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import menu.exception.DuplicateCoachNameException;
+import menu.exception.InvalidCoachSizeException;
 
 public class Coaches {
 
@@ -25,10 +27,10 @@ public class Coaches {
 
     private static void validate(List<String> coachNames) {
         if (coachNames.size() < MIN_COACH_SIZE || coachNames.size() > MAX_COACH_SIZE) {
-            throw new IllegalArgumentException();
+            throw new InvalidCoachSizeException(MIN_COACH_SIZE, MAX_COACH_SIZE);
         }
         if (isContainDuplicateName(coachNames)) {
-            throw new IllegalArgumentException();
+            throw new DuplicateCoachNameException();
         }
     }
 

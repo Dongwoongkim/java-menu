@@ -1,5 +1,7 @@
 package menu.model.vo;
 
+import menu.exception.InvalidCoachNameSizeException;
+
 public class Name {
 
     private final Integer MIN_LENGTH = 2;
@@ -14,7 +16,7 @@ public class Name {
 
     private void validate(String name) {
         if (!isLengthValid(name)) {
-            throw new IllegalArgumentException();
+            throw new InvalidCoachNameSizeException(MIN_LENGTH, MAX_LENGTH);
         }
     }
 
