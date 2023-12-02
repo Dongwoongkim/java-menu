@@ -31,19 +31,22 @@ public class RecommendController {
         CategoryGenerator categoryGenerator = new CategoryGenerator();
         List<Integer> categoryNumbers = categoryGenerator.pickCategory();
 
-        List<RecommendResultDto> results = coaches.getCoaches().stream()
-                .map(coach -> initRecommendResults(coach, categoryNumbers))
-                .collect(Collectors.toUnmodifiableList());
-
+        recommendMenu(coaches, categoryNumbers);
+        List<RecommendResultDto> results = getResults(coaches);
         showResult(categoryNumbers, results);
     }
 
-    private RecommendResultDto initRecommendResults(Coach coach, List<Integer> categoryNumbers) {
+    private List<RecommendResultDto> getResults(Coaches coaches) {
+        List<RecommendResultDto> results = coaches.getCoaches().stream()
+                .map(coach -> RecommendResultDto.create(coach.getPlan(), coach.getName()))
+                .collect(Collectors.toUnmodifiableList());
+        return results;
+    }
+
+    private void recommendMenu(Coaches coaches, List<Integer> categoryNumbers) {
         for (Integer categoryNumber : categoryNumbers) {
-            coach.makeOneDayPlan(categoryNumber, new RandomFoodGenerator());
+            coaches.getCoaches().forEach(coach -> coach.makeOneDayPlan(categoryNumber, new RandomFoodGenerator()));
         }
-        RecommendResultDto recommendResultDto = RecommendResultDto.create(coach.getPlan(), coach.getName());
-        return recommendResultDto;
     }
 
     private void showResult(List<Integer> categoryNumbers, List<RecommendResultDto> results) {
