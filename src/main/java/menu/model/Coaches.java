@@ -38,4 +38,8 @@ public class Coaches {
         Set<String> uniqueNames = new HashSet<>(coachNames);
         return uniqueNames.size() != coachNames.size();
     }
+
+    public List<Coach> getCoaches() {
+        return coaches;
+    }
 }

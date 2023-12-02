@@ -17,5 +17,9 @@ public enum Menu {
         this.sequence = sequence;
         this.food = food;
     }
+
+    public List<String> getFood() {
+        return food;
+    }
 }
 

@@ -1,6 +1,7 @@
 package menu.util;
 
 import menu.exception.EmptyCoachNameException;
+import menu.exception.EmptyUnEatableFoodException;
 
 public class InputValidator {
 

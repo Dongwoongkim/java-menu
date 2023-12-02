@@ -1,6 +1,9 @@
 package menu.controller;
 
+import java.util.List;
+import menu.model.Coach;
 import menu.model.Coaches;
+import menu.model.vo.Food;
 import menu.util.InputConverter;
 import menu.util.InputValidator;
 import menu.view.InputView;
@@ -19,6 +22,27 @@ public class RecommendController {
     public void run() {
         outputView.printStartMessage();
         Coaches coaches = initCoaches();
+        initUnEatableFood(coaches);
+
+    }
+
+    private void initUnEatableFood(Coaches coaches) {
+        coaches.getCoaches().forEach(coach -> {
+            initUnEatableFoodEachCoach(coach);
+        });
+    }
+
+    private void initUnEatableFoodEachCoach(Coach coach) {
+        while (true) {
+            try {
+                String unEatableMenu = inputView.inputInedibleMenu(coach.getName());
+                List<String> unEatableFoodNames = InputConverter.convertStringToStringListByDelimiter(unEatableMenu);
+                coach.addUnEatableFood(unEatableFoodNames);
+                return;
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 
     private Coaches initCoaches() {

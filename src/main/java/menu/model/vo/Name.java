@@ -26,4 +26,8 @@ public class Name {
         }
         return false;
     }
+
+    public String getName() {
+        return name;
+    }
 }
