@@ -43,6 +43,7 @@ String category = categories.get(Randoms.pickNumberInRange(1, 5));
 - 이 때 임의로 카테고리의 순서 또는 데이터를 변경하면 안 된다.
 - Randoms.pickNumberInRange()의 결과가 1이면 일식, 2면 한식, 3이면 중식, 4면 아시안, 5면 양식을 추천해야 한다.
 - 추천할 수 없는 카테고리인 경우 다시 Randoms.pickNumberInRange()를 통해 임의의 값을 생성해서 추천할 카테고리를 정해야 한다.
+- 숫자를 5개 뽑는데 뽑은 숫자가 3개 이상 나올 수 없도록 해야함.
 
 2. 메뉴
 - 추천할 메뉴는 정해진 카테고리에 있는 메뉴를 camp.nextstep.edu.missionutils에서 제공하는 Randoms.shuffle()을 통해 임의의 순서로 섞은 후, 첫 번째 값을 사용해야 한다.

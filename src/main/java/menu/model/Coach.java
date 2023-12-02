@@ -15,10 +15,12 @@ public class Coach {
     private static final Integer MAX_UNEATABLE_FOOD_SIZE = 2;
     private final Name name;
     private List<Food> unEatableFoods;
+    private List<Food> plan;
 
     private Coach(Name name) {
         this.name = name;
         this.unEatableFoods = new ArrayList<Food>();
+        this.plan = new ArrayList<>();
     }
 
     public static Coach createByName(String coachName) {
@@ -53,6 +55,22 @@ public class Coach {
     private boolean isContainDuplicateFood(List<String> foodNames) {
         Set<String> uniqueNames = new HashSet<>(foodNames);
         return uniqueNames.size() != foodNames.size();
+    }
+
+    public void makeOneDayPlan(final Integer categoryNumber, RandomFoodGenerator randomFoodGenerator) {
+        List<String> foodNames = Menu.getFoodBySequence(categoryNumber);
+        while (true) {
+            String pickedFoodName = randomFoodGenerator.pickRandomFood(foodNames);
+            Food food = new Food(pickedFoodName);
+            if (!unEatableFoods.contains(food) && !plan.contains(pickedFoodName)) {
+                this.plan.add(food);
+                break;
+            }
+        }
+    }
+
+    public List<String> getPlan() {
+        return plan.stream().map(food -> String.valueOf(food.getName())).collect(Collectors.toUnmodifiableList());
     }
 
     public String getName() {
