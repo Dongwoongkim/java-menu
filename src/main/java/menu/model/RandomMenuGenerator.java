@@ -8,7 +8,6 @@ import java.util.List;
 public class RandomMenuGenerator implements MenuGenerator {
 
     private static final Integer FIRST_INDEX = 0;
-
     private static final Integer FIRST_CATEGORY_NUMBER = 1;
     private static final Integer LAST_CATEGORY_NUMBER = 5;
     private static final Integer CATEGORY_MAX_SIZE = 5;

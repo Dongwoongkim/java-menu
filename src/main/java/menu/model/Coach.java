@@ -78,4 +78,8 @@ public class Coach {
     public String getName() {
         return name.getName();
     }
+
+    public List<Food> getUnEatableFoods() {
+        return unEatableFoods;
+    }
 }
