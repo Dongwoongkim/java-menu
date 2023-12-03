@@ -13,6 +13,7 @@ import menu.model.vo.Name;
 public class Coach {
 
     private static final Integer MAX_UNEATABLE_FOOD_SIZE = 2;
+    
     private final Name name;
     private List<Food> unEatableFoods;
     private List<Food> plan;
@@ -62,7 +63,7 @@ public class Coach {
         while (true) {
             String pickedFoodName = menuGenerator.pickRandomFood(foodNames);
             Food food = new Food(pickedFoodName);
-            if (!unEatableFoods.contains(food) && !plan.contains(pickedFoodName)) {
+            if (!unEatableFoods.contains(food) && !plan.contains(food)) {
                 this.plan.add(food);
                 break;
             }
